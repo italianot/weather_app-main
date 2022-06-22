@@ -3,6 +3,7 @@ import 'package:weather_app/data_sources/api/weather_api.dart';
 import 'package:weather_app/data_sources/local/weather_local_data_source.dart';
 import 'package:weather_app/models/global.dart';
 import 'package:weather_app/repository/weather_repository.dart';
+import 'package:location/location.dart';
 
 import 'five_days.dart';
 
@@ -11,14 +12,34 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
-
-
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // bool _loading = false;
+  // LocationData? _location;
+  // String? _error;
+
+  // Future<void> _getLocation() async {
+  //   setState(() {});
+  //   try {
+  //     final _locationResult = await getLocation(
+  //       settings: LocationSettings(ignoreLastKnownPosition: true),
+  //     );
+
+  //     setState(() {
+  //       _location = _locationResult;
+  //       _loading = false;
+  //     });
+  //   } on PlatformException catch (err) {
+  //     setState(() {
+  //       _error = err.code;
+  //       _loading = false;
+  //     });
+  //   }
+  // }
+
   Future<WeatherRepository> initRepository() async {
     final api = WeatherApi();
     final localDataSource = WeatherLocalDataSource();
@@ -41,7 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: ((context) => const FiveDays(title: 'Прогноз на 5 дней',))));
+                          builder: ((context) => const FiveDays(
+                                title: 'Прогноз на 5 дней',
+                              ))));
                 },
                 child: Text('Прогноз на 5 дней')),
           ),
@@ -52,8 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (!snapshot.hasData) return CircularProgressIndicator();
                 final repo = snapshot.data!;
                 return FutureBuilder<Global>(
-                  future: repo.fetchData(
-                      52.2978, 104.296, 1), /////////////
+                  future: repo.fetchData(52.2978, 104.296, 1), /////////////
                   builder: (context, AsyncSnapshot<Global> data) {
                     if (data.hasData && data.data != null) {
                       return Card(
