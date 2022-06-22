@@ -11,7 +11,8 @@ class WeatherApi {
 
   Future<Global> getCurrentWeather(
     double latitude,
-    double longitude, int count,
+    double longitude, 
+    int count,
   ) async {
     final response = await dio.get(
       'weather',

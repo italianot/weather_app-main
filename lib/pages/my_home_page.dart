@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   style: TextStyle(fontSize: 20),
                                 ),
                                 Text(
-                                  '${data.data!.weather}',
+                                  '${data.data!.weather[0].main} ${data.data!.weather[0].description}',
                                   style: TextStyle(fontSize: 20),
                                 ),
                               ]),

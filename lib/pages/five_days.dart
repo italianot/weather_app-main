@@ -43,9 +43,7 @@ class _FiveDaysState extends State<FiveDays> {
                       52.27483630743035, 104.25449925002037, 5), /////////////
                   builder: (context, AsyncSnapshot<Global> data) {
                     if (data.hasData && data.data != null) {
-                      ListView.builder(
-                        itemCount: 5,
-                        itemBuilder: ((context, index) {
+                      
                         return Card(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -65,13 +63,12 @@ class _FiveDaysState extends State<FiveDays> {
                                     style: TextStyle(fontSize: 20),
                                   ),
                                   Text(
-                                    '${data.data!.weather[0]}',
+                                    '${data.data!.weather[0].main} ${data.data!.weather[0].description}',
                                     style: TextStyle(fontSize: 20),
                                   ),
                                 ]),
                           ),
                         );
-                      }));
                     } else if (data.hasError) {
                       return Text(
                         'ошибка',
